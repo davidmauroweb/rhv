@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{empper,empsuc,sucesos,sucapl};
+use App\Models\{empper,empsuc,sucesos,sucapl,personas};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -11,9 +11,14 @@ class EmpperController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($ep)
     {
-        //
+        $lista = DB::table('emppers')
+        ->select('personas.nombre')
+        ->join('personas','emppers.idPer','personas.id')
+        ->where('emppers.idEmp','=',$ep)
+        ->get();
+        return response()->json($lista);
     }
 
     /**
@@ -33,7 +38,8 @@ class EmpperController extends Controller
         $n->idEmp = $request->idEmp;
         $n->idPer = $request->idPer;
         $n->save();
-        return redirect()->route('personas.index');
+        echo $request;
+        return redirect()->route('personas.index')->with('mensajeOk','Vinculo Generado ');
     }
 
     /**
@@ -41,22 +47,25 @@ class EmpperController extends Controller
      */
     public function show(Request $request)
     {
-        $apl=DB::table('empsucs')
-        ->select('sucapls.idSuc','sucapls.vence','sucesos.id','sucesos.nombresuc','empsucs.*',DB::raw("DATEDIFF(sucapls.vence,curdate())AS days"))
-        ->join('sucesos','sucesos.id','=','empsucs.idSuc')
-        ->leftjoin('sucapls','sucapls.idSuc','=','empsucs.idSuc')
-        ->where('empsucs.idEmp','=',$request->idEmp)
+        $aplicados=DB::table('sucapls')
+        ->select('sucesos.id','sucesos.nombresuc','sucapls.*',DB::raw("DATEDIFF(sucapls.vence,curdate())AS days"))
+        ->join('sucesos','sucesos.id','=','sucapls.idSuc')
         ->where('sucapls.idPer','=',$request->idPer)
         ->orderBy('days')
         ->get();
-        //$apl = $ls->unique('sucapls.idSuc');
+        $apl = $aplicados->unique('sucapls.idSuc');
+        $empsuc=DB::table('empsucs')
+        ->select('sucesos.id','sucesos.nombresuc','empsucs.*')
+        ->join('sucesos','sucesos.id','=','empsucs.idSuc')
+        ->where('empsucs.idEmp','=',$request->idEmp)
+        ->get();
         $per=DB::table('personas')
         ->where('id','=',$request->idPer)
         ->get();
         $emp=DB::table('empresas')
         ->where('id','=',$request->idEmp)
         ->get();
-        return view ('empper',['apl'=>$apl, 'per'=>$per, 'emp'=>$emp]);
+        return view ('empper',['apl'=>$apl, 'empsuc'=>$empsuc, 'per'=>$per, 'emp'=>$emp]);
     }
 
     /**

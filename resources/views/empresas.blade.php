@@ -1,6 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+    $(document).ready(function(){
+   
+});
+
+function lista(emp){
+  
+    $.ajax({
+        url: '/empper/' + emp ,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var rows = '';
+            if(data.length > 0) {
+                $.each(data, function(i, personas){
+                rows+= '<tr><td>' + personas.nombre + '</td></tr>'; 
+                });
+            }
+            $('#tab').html(rows);
+        }  
+    })
+} 
+</script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -21,6 +44,7 @@
                         <th>CUIT</th>
                         <th><i class="bi bi-pencil-square"></i></th>
                         <th><i class="bi bi-card-checklist"></i></th>
+                        <th><i class="bi bi-people-fill"></i></th>
                     </thead>
                     <tbody>
                     @foreach ($empresa as $e)
@@ -60,8 +84,28 @@
                             </td>
                             <td>
                                 <a class="navbar-brand text-primary" href="{{route('empsuc.index',$e->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm">{{$e->q_sucesos}}</button>
                                 </a>  
+                            </td>
+                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlis" onClick="lista({{$e->id}})">
+                                {{$e->q_personas}}
+                                </button>
+                                <div class="modal fade" id="mlis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Personal de {{$e->nombre}}</h6>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table>
+                                                <tbody id="tab">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

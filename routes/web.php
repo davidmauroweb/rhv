@@ -51,6 +51,7 @@ Route::get('/sucaplp/{sa}', [SucaplController::class, 'show'])->name('sucapl.sho
 Route::post('/sucapl', [SucaplController::class, 'store'])->name('sucapl.store');
 Route::delete('/sucapldel/{sa}', [SucaplController::class, 'destroy'])->name('sucapl.destroy');
 //Empresas Personas
+Route::get('/empper/{ep}', [EmpperController::class, 'index'])->name('empper.index');
 Route::post('/empper-sh', [EmpperController::class, 'show'])->name('empper.show');
 Route::post('/empper-st', [EmpperController::class, 'store'])->name('empper.store');
 //Vehicuos Sucesos

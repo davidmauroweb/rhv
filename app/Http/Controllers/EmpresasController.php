@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\empresas;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EmpresasController extends Controller
@@ -16,7 +17,22 @@ class EmpresasController extends Controller
      */
     public function index()
     {
-        $empresas = empresas::all()->where('act', '=', 1)->sortBy('nombre');
+        $empresas = DB::select("SELECT Z.id, Z.nombre, Z.cuit, COUNT(distinct PERS.idper) q_personas, COUNT(distinct SUC.idsuc) q_sucesos,  GROUP_CONCAT(distinct Z.x SEPARATOR ' ') FROM
+        (SELECT W.id, W.nombre, W.cuit, CONCAT(W.estado, COUNT(W.estado), '</span>') x FROM (SELECT E.id, E.nombre, E.cuit,
+        IF(Q.vence IS NULL OR Q.vence < CURDATE(), '<span class=`badge rounded-pill bg-danger`>', 
+        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, '<span class=`badge rounded-pill bg-warning`>', '<span class=`badge rounded-pill bg-success`>'))  estado, Q.idsucapl FROM empresas E
+        INNER JOIN empsucs ES ON ES.idEmp = E.id
+        INNER JOIN (SELECT id, vigencia FROM sucesos WHERE tipo > 0)  S ON S.id = ES.idSuc
+        INNER JOIN emppers EP ON EP.idEmp = E.id
+        INNER JOIN personas P ON P.id = EP.idPer
+        LEFT JOIN (SELECT idsucapl, idper, idsuc, vence FROM sucapls 
+        WHERE sucapls.idsucapl IN (SELECT MAX(idsucapl) idsucapl FROM sucapls WHERE idper IS NOT NULL GROUP BY idper, idsuc))
+        Q ON Q.idper = P.id AND Q.idsuc = S.id WHERE P.activo = 1) W
+        GROUP BY W.id, W.estado ORDER BY estado) Z LEFT JOIN emppers PERS ON PERS.idemp = Z.id 
+        INNER JOIN personas PE ON PE.id = PERS.idper
+        LEFT JOIN empsucs SUC ON SUC.idemp = Z.id  WHERE PE.activo = 1
+        GROUP BY Z.id, Z.nombre");
+        //echo $empresas;
         return view ('empresas',['empresa'=>$empresas]);
     }
 
