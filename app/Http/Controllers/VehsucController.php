@@ -31,11 +31,20 @@ class VehsucController extends Controller
     {
         if($request->idSuc != "*")
         {
-            $n = new vehsuc;
-            $n->idVeh = $request->idVeh;
-            $n->idSuc = $request->idSuc;
-            $n->save();
-            return redirect()->route('vehsuc.show', $request->idVeh);    
+            $chek = DB::table('vehsucs')
+            ->where('idVeh','=',$request->idVeh)
+            ->where('idSuc','=',$request->idSuc)
+            ->select(DB::raw('count(*) as q'))
+            ->first();
+            if ($chek->q == 0){
+                $n = new vehsuc;
+                $n->idVeh = $request->idVeh;
+                $n->idSuc = $request->idSuc;
+                $n->save();
+                return redirect()->route('vehsuc.show', $request->idVeh)->with('mensajeOk','Vinculo Generado');;
+            }else{
+                return redirect()->route('vehsuc.show', $request->idVeh)->with('mensajeErr','Vinculo Exitente ');
+            }
         }
         else
         {

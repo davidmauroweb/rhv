@@ -17,10 +17,10 @@ class EmpresasController extends Controller
      */
     public function index()
     {
-        $empresas = DB::select("SELECT Z.id, Z.nombre, Z.cuit, COUNT(distinct PERS.idper) q_personas, COUNT(distinct SUC.idsuc) q_sucesos,  GROUP_CONCAT(distinct Z.x SEPARATOR ' ') FROM
+        $empresas = DB::select("SELECT Z.id, Z.nombre, Z.cuit, COUNT(distinct PERS.idper) q_personas, COUNT(distinct SUC.idsuc) q_sucesos, GROUP_CONCAT(distinct Z.x SEPARATOR ' ') xx FROM
         (SELECT W.id, W.nombre, W.cuit, CONCAT(W.estado, COUNT(W.estado), '</span>') x FROM (SELECT E.id, E.nombre, E.cuit,
-        IF(Q.vence IS NULL OR Q.vence < CURDATE(), '<span class=`badge rounded-pill bg-danger`>', 
-        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, '<span class=`badge rounded-pill bg-warning`>', '<span class=`badge rounded-pill bg-success`>'))  estado, Q.idsucapl FROM empresas E
+        IF(Q.vence IS NULL OR Q.vence < CURDATE(), '<span class=\"badge rounded-pill bg-danger\">', 
+        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, '<span class=\"badge rounded-pill bg-warning\">', '<span class=\"badge rounded-pill bg-success\">'))  estado, Q.idsucapl FROM empresas E
         INNER JOIN empsucs ES ON ES.idEmp = E.id
         INNER JOIN (SELECT id, vigencia FROM sucesos WHERE tipo > 0)  S ON S.id = ES.idSuc
         INNER JOIN emppers EP ON EP.idEmp = E.id
@@ -32,7 +32,7 @@ class EmpresasController extends Controller
         INNER JOIN personas PE ON PE.id = PERS.idper
         LEFT JOIN empsucs SUC ON SUC.idemp = Z.id  WHERE PE.activo = 1
         GROUP BY Z.id, Z.nombre");
-        //echo $empresas;
+        //var_dump($empresas);
         return view ('empresas',['empresa'=>$empresas]);
     }
 

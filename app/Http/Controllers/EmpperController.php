@@ -13,11 +13,21 @@ class EmpperController extends Controller
      */
     public function index($ep)
     {
-        $lista = DB::table('emppers')
+        /**$lista = DB::select('emppers')
         ->select('personas.nombre')
         ->join('personas','emppers.idPer','personas.id')
         ->where('emppers.idEmp','=',$ep)
-        ->get();
+        ->get();*/
+        $lista = DB::select("SELECT S.nombresuc suceso, P.nombre persona, P.activo,
+        IF(Q.vence IS NULL OR Q.vence < CURDATE(), 'PENDIENTE', 
+        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, 'VENCIMIENTO PRÓXIMO', 'CORRECTO')) estado FROM empresas E
+        INNER JOIN empsucs ES ON ES.idEmp = E.id
+        INNER JOIN (SELECT id, vigencia, nombresuc FROM sucesos WHERE tipo > 0)  S ON S.id = ES.idSuc
+        INNER JOIN emppers EP ON EP.idEmp = E.id
+        INNER JOIN personas P ON P.id = EP.idPer
+        LEFT JOIN (SELECT idsucapl, idper, idsuc, vence FROM sucapls 
+        WHERE sucapls.idsucapl IN (SELECT MAX(idsucapl) idsucapl FROM sucapls WHERE idper IS NOT NULL GROUP BY idper, idsuc))
+        Q ON Q.idper = P.id AND Q.idsuc = S.id WHERE P.activo = 1 AND E.id = ".$ep);
         return response()->json($lista);
     }
 
@@ -34,12 +44,21 @@ class EmpperController extends Controller
      */
     public function store(Request $request)
     {
-        $n = new empper;
-        $n->idEmp = $request->idEmp;
-        $n->idPer = $request->idPer;
-        $n->save();
-        echo $request;
-        return redirect()->route('personas.index')->with('mensajeOk','Vinculo Generado ');
+        $chek = DB::table('emppers')
+        ->where('idEmp','=',$request->idEmp)
+        ->where('idPer','=',$request->idPer)
+        ->select(DB::raw('count(*) as q'))
+        ->first();
+        /**echo $chek->q;*/
+        if ($chek->q == 0){
+            $n = new empper;
+            $n->idEmp = $request->idEmp;
+            $n->idPer = $request->idPer;
+            $n->save();
+            return redirect()->route('personas.index')->with('mensajeOk','Vinculo Generado ');
+        }else{
+            return redirect()->route('personas.index')->with('mensajeErr','Vinculo Exitente ');
+        }  
     }
 
     /**

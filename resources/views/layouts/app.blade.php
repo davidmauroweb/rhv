@@ -104,6 +104,12 @@
 <a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="bi bi-x-circle"></i></a>
 </div>
 @endif
+@if (session('mensajeErr'))
+    <div class="alert alert-warning px-5 mx-5" role="alert" id="m">
+{{session('mensajeErr')}}
+<a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="bi bi-x-circle"></i></a>
+</div>
+@endif
         <main class="py-2">
             @yield('content')
         </main>

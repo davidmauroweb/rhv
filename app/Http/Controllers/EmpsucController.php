@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{empsuc, empresas, sucesos};
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class EmpsucController extends Controller
@@ -36,11 +37,20 @@ class EmpsucController extends Controller
      */
     public function store(Request $request)
     {
-        $n = new empsuc;
-        $n->idEmp = $request->idEmp;
-        $n->idSuc = $request->idSuc;
-        $n->save();
-        return redirect()->route('empsuc.index',$request->idEmp);
+        $chek = DB::table('empsucs')
+        ->where('idEmp','=',$request->idEmp)
+        ->where('idSuc','=',$request->idSuc)
+        ->select(DB::raw('count(*) as q'))
+        ->first();
+        if ($chek->q == 0){
+            $n = new empsuc;
+            $n->idEmp = $request->idEmp;
+            $n->idSuc = $request->idSuc;
+            $n->save();
+            return redirect()->route('empsuc.index',$request->idEmp)->with('mensajeOk','Vinculo Generado');
+        }else{
+            return redirect()->route('empsuc.index',$request->idEmp)->with('mensajeErr','Vinculo Exitente ');
+        }
     }
 
     /**
