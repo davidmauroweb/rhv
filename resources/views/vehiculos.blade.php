@@ -66,30 +66,25 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+<div class="table-responsive">
                     <table class="table table-sn table-hover">
                     <thead>
                         <th>#</th>
                         <th>TIPO</th>
                         <th>MODEL</th>
-                        <th>AÑO</th>
-                        <th>OK/RQ</th>
+                        <th class="text-center">AÑO</th>
+                        <th></th>
                         <th class="text-center">DOMINIO</th>
-                        <th><i class="bi bi-pencil-square"></i></th>
-                        <th><i class="bi bi-boxes"></i></th>
-                        <th><i class="bi bi-card-checklist"></i></th>
-                        <th><i class="bi bi-trash-fill"></i></th>
+                        <th class="text-center"><i class="bi bi-pencil-square"></i></th>
+                        <th class="text-center"><i class="bi bi-boxes"></i></th>
+                        <th class="text-center"><i class="bi bi-card-checklist"></i></th>
+                        <th class="text-center"><i class="bi bi-trash-fill"></i></th>
                     </thead>
                     <tbody>
                     @foreach ($vehiculo as $v)
                         <tr class="align-middle td{{$v->tipo}}">
-                            <td>{{$v->id}}</td>
-                            <td><div class="
-                                @if($v->fro==$v->frq)
-                                text-success
-                                @else
-                                text-danger
-                                @endif">
+                            <td class="text-center">{{$v->id}}</td>
+                            <td class="text-center">
                                 @switch($v->tipo)
                                 @case('Automovil')
                                 <i class="bi bi-car-front-fill"></i>@break
@@ -101,13 +96,22 @@
                                 <i class="bi bi-bus-front-fill"></i>@break
                                 @case('Otro')
                                 <i class="bi bi-ev-front"></i>@break
-                                @endswitch</div>
+                                @endswitch
                             </td>
                             <td>{{$v->marca}}</td>
-                            <td>{{$v->modelo}}</td>
-                            <td>{{$v->fro}}/{{$v->frq}}</td>
+                            <td class="text-center">{{$v->modelo}}</td>
+                            <td class="text-center">
+                                <div class="
+                                @if($v->fro==$v->frq)
+                                text-success
+                                @else
+                                text-danger
+                                @endif">
+                                {{$v->fro}}/{{$v->frq}}
+                                </div>
+                            </td>
                             <td class="text-center">{{ Str::upper($v->patente) }}</td>
-                            <td>
+                            <td class="text-center">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$v->id}}"><i class="bi bi-pencil-square"></i></button>
                                 <!-- Modal -->
@@ -152,7 +156,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#s{{$v->id}}"><i class="bi bi-boxes"></i></button>
                                 <!-- Modal -->
@@ -188,12 +192,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td class="text-end">
                                 <a class="navbar-brand text-primary" href="{{route('sucapl.index',$v->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
                                 </a> 
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <form action="{{route('vehiculos.destroy', $v->id)}}" method="post">
                                     @csrf
                                     @method('delete')
@@ -204,6 +208,7 @@
                     @endforeach
                     </tbody>
                     </table>
+                </div>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mm">Agregar</button>

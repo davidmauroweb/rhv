@@ -17,8 +17,17 @@ class PersonasController extends Controller
      */
     public function index()
     {
-        $personas = personas::all()->where('activo', '=', 1)->sortBy('nombre');
+        $personas = DB::select("SELECT P.id, P.nombre, P.dni, P.sx, P.ingreso, P.activo, IFNULL(GROUP_CONCAT(DISTINCT E.nombre), 'SIN ASIGNAR') empresas , SUM(IF(Q.vence IS NULL OR CURDATE() > Q.vence, 0, 1)) f, COUNT(S.id) r FROM personas P
+        LEFT JOIN emppers EP ON EP.idper = P.id
+        LEFT JOIN empresas E ON E.id = EP.idemp
+        LEFT JOIN empsucs ES ON ES.idemp = E.id
+        LEFT JOIN (SELECT id, vigencia, nombresuc FROM sucesos WHERE tipo > 0)  S ON S.id = ES.idSuc
+        LEFT JOIN (SELECT idsucapl, idper, idsuc, vence FROM sucapls 
+        WHERE sucapls.idsucapl IN (SELECT MAX(idsucapl) idsucapl FROM sucapls WHERE idper IS NOT NULL GROUP BY idper, idsuc))
+        Q ON Q.idper = P.id AND Q.idsuc = S.id
+        GROUP BY P.id, P.nombre, P.dni, P.sx, P.ingreso, P.activo");
         $empresas = empresas::all()->where('act', '=', 1)->sortBy('nombre');
+        //var_dump($personas);
         return view ('personas',['persona'=>$personas, 'empresas'=>$empresas]);
         
     }
@@ -72,6 +81,7 @@ class PersonasController extends Controller
         $upd->dni = $request->dni;
         $upd->sx = $request->sx;
         $upd->ingreso = $request->ingreso;
+        $upd->activo = $request->activo;
         $upd->save();
         return redirect()->route('personas.index')->with('mensajeOk','Se actualizó correctamente a '.$request->nombre);
     }

@@ -19,8 +19,8 @@ class EmpperController extends Controller
         ->where('emppers.idEmp','=',$ep)
         ->get();*/
         $lista = DB::select("SELECT S.nombresuc suceso, P.nombre persona, P.activo,
-        IF(Q.vence IS NULL OR Q.vence < CURDATE(), 'PENDIENTE', 
-        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, 'VENCIMIENTO PRÓXIMO', 'CORRECTO')) estado FROM empresas E
+        IF(Q.vence IS NULL OR Q.vence < CURDATE(), '<div class=\"text-danger\"><i class=\"bi bi-shield-fill-x\"><\/i><\/div>', 
+        IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, '<div class=\"text-warning\"><i class=\"bi bi-shield-fill-exclamation\"><\/i><\/div>', '<div class=\"text-success\"><i class=\"bi bi-shield-fill-check\"><\/i><\/div>')) estado FROM empresas E
         INNER JOIN empsucs ES ON ES.idEmp = E.id
         INNER JOIN (SELECT id, vigencia, nombresuc FROM sucesos WHERE tipo > 0)  S ON S.id = ES.idSuc
         INNER JOIN emppers EP ON EP.idEmp = E.id
@@ -30,7 +30,16 @@ class EmpperController extends Controller
         Q ON Q.idper = P.id AND Q.idsuc = S.id WHERE P.activo = 1 AND E.id = ".$ep);
         return response()->json($lista);
     }
-
+    public function indexper($ep)
+    {
+        $lista = DB::table('emppers')
+        ->select('emppers.id','personas.nombre')
+        ->join('personas','emppers.idPer','personas.id')
+        ->where('emppers.idEmp','=',$ep)
+        ->where('personas.activo','=',1)
+        ->get();
+        return response()->json($lista);
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -106,8 +115,10 @@ class EmpperController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(empper $empper)
+    public function destroy(empper $ep)
     {
-        //
+        $del = empper::find($ep->id);
+        $del->delete();
+        return redirect()->route('empresas.index')->with('mensajeOk','Vínculo eliminado');
     }
 }

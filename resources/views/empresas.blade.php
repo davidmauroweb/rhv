@@ -22,6 +22,24 @@ function lista(emp){
             $('#tab').html(rows);
         }  
     })
+}
+
+function listap(emp){
+  
+  $.ajax({
+      url: '/empperp/' + emp ,
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+          var rows = '';
+          if(data.length > 0) {
+              $.each(data, function(i, personas){
+              rows+= '<tr><td>' + personas.id + '</td><td>' + personas.nombre + '</td></tr>'; 
+              });
+          }
+          $('#tabp').html(rows);
+      }  
+  })
 } 
 </script>
 <div class="container">
@@ -36,18 +54,19 @@ function lista(emp){
                             {{ session('status') }}
                         </div>
                     @endif
-
+<div class="table-responsive">
                     <table class="table table-sn table-hover">
                     <thead>
                         <th>#</th>
                         <th>NOMBRE</th>
                         <th>CUIT</th>
-                        <th>PERSONAS</th>
-                        <th>SUCESOS</th>
-                        <th>x</th>
-                        <th><i class="bi bi-pencil-square"></i></th>
-                        <th><i class="bi bi-card-checklist"></i></th>
                         <th><i class="bi bi-people-fill"></i></th>
+                        <th></th>
+                        <th><i class="bi bi-card-checklist"></i></th>
+                        <th>RESUMEN</th>
+                        <th><i class="bi bi-pencil-square"></i></th>
+                        <th><i class="bi bi-ui-checks"></i></th>
+                        <th>ESTADO</th>
                     </thead>
                     <tbody>
                     @foreach ($empresa as $e)
@@ -55,9 +74,29 @@ function lista(emp){
                             <td>{{$e->id}}</td>
                             <td>{{$e->nombre}}</td>
                             <td>{{$e->cuit}}</td>
-                            <td>{{$e->q_personas}}</td>
-                            <td>{{$e->q_sucesos}}</td>
-                            <td>@php echo $e->xx; @endphp</td>
+                            <td >{{$e->q_personas}}</td>
+                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlisp" onClick="listap({{$e->id}})">
+                                <i class="bi bi-people-fill"></i>
+                                </button>
+                                <div class="modal fade" id="mlisp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h6 class="modal-title" id="exampleModalLabel">Personal de {{$e->nombre}}</h6>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table  class="table table-sn table-hover">
+                                                <tbody id="tabp">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </td>
+                            <td >{{$e->q_sucesos}}</td>
+                            <td>@php echo $e->x; @endphp</td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$e->id}}"><i class="bi bi-pencil-square"></i></button>
@@ -90,17 +129,17 @@ function lista(emp){
                             </td>
                             <td>
                                 <a class="navbar-brand text-primary" href="{{route('empsuc.index',$e->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-ui-checks"></i></button>
                                 </a>  
                             </td>
                             <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlis" onClick="lista({{$e->id}})">
-                                <i class="bi bi-people-fill"></i>
+                                <i class="bi bi-person-fill-check"></i>
                                 </button>
                                 <div class="modal fade" id="mlis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Personal de {{$e->nombre}}</h6>
+                                        <h6 class="modal-title" id="exampleModalLabel">Sucesos del personal de {{$e->nombre}}</h6>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -117,6 +156,7 @@ function lista(emp){
                     @endforeach
                     </tbody>
                     </table>
+</div>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mm">Agregar</button>

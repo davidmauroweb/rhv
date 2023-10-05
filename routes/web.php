@@ -21,6 +21,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/homeshow/{dt}', [HomeController::class, 'show'])->name('home.show');
 //Vehiculos
 Route::get('/vehiculos', [VehiculosController::class, 'index'])->name('vehiculos.index');
 Route::post('/vehiculos', [VehiculosController::class, 'store'])->name('vehiculos.store');
@@ -52,8 +53,10 @@ Route::post('/sucapl', [SucaplController::class, 'store'])->name('sucapl.store')
 Route::delete('/sucapldel/{sa}', [SucaplController::class, 'destroy'])->name('sucapl.destroy');
 //Empresas Personas
 Route::get('/empper/{ep}', [EmpperController::class, 'index'])->name('empper.index');
+Route::get('/empperp/{ep}', [EmpperController::class, 'indexper'])->name('empper.indexper');
 Route::post('/empper-sh', [EmpperController::class, 'show'])->name('empper.show');
 Route::post('/empper-st', [EmpperController::class, 'store'])->name('empper.store');
+Route::delete('/empper/{ep}', [EmpperController::class, 'destroy'])->name('empper.destroy');
 //Vehicuos Sucesos
 Route::get('/vehsuc/{v}', [VehsucController::class, 'show'])->name('vehsuc.show');
 Route::post('/vehsuc', [VehsucController::class, 'store'])->name('vehsuc.store');

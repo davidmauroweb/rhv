@@ -42,7 +42,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+<div class="table-responsive">
                     <table class="table table-sn table-hover">
                     <thead>
                         <th>#</th>
@@ -113,6 +113,7 @@
                     @endforeach
                     </tbody>
                     </table>
+</div>
                 </div>
                 <div class="card-footer">
                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mm">Agregar</button>
