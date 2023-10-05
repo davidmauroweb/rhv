@@ -18,7 +18,7 @@ class SucaplController extends Controller
             ->join('sucesos','sucesos.id','=','idSuc')
             ->join('vehiculos','vehiculos.id','=','idVeh')
             ->where('idVeh','=',$sa)
-            ->orderBy('days')
+            ->orderBy('sucapls.vence', 'desc')
             ->get();
             $lista = $ls->unique('idSuc');
         $lsuc = DB::table('vehsucs')

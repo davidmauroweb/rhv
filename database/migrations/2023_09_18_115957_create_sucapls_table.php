@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sucapls', function (Blueprint $table) {
             $table->integerIncrements('idsucapl');
-            $table->unsignedTinyInteger('idPer');
-            $table->unsignedTinyInteger('idVeh');
-            $table->unsignedTinyInteger('idSuc')->nulleable('false');
+            $table->unsignedBigInteger('idPer');
+            $table->unsignedBigInteger('idVeh');
+            $table->unsignedBigInteger('idSuc')->nulleable('false');
             $table->date('fecha');
             $table->date('vence');
             $table->foreign('idPer')->references('id')->on('personas');

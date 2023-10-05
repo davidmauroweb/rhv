@@ -42,6 +42,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- Iconos -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <!-- Sweet Alert-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Datapicker -->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -53,16 +55,14 @@
 
     </head>
 <body>
-
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Panel
                 </a>
-
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                
                     <!-- Left Side Of Navbar -->
                         <a class="navbar-brand text-primary" href="{{ url('/empresas') }}">
                             <i class="bi bi-buildings-fill"></i> Empresas
@@ -119,10 +119,7 @@
             </div>
         </nav>
 @if (session('mensajeOk'))
-    <div class="alert alert-success px-5 mx-5" role="alert" id="m">
-{{session('mensajeOk')}}
-<a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="bi bi-x-circle"></i></a>
-</div>
+swal("Correcto!", "{{session('mensajeOk')}}", "success");
 @endif
 @if (session('mensajeErr'))
     <div class="alert alert-warning px-5 mx-5" role="alert" id="m">

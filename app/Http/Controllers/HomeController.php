@@ -48,6 +48,7 @@ class HomeController extends Controller
         GROUP BY label");
         return view ('home',['data'=>$data]);
     }
+    
     public function show($dt)
     {
         $data = DB::select("SELECT Y.* FROM (SELECT E.nombre field1, S.nombresuc field2, P.nombre field3, 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('empsucs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('idEmp')->nulleable('false');
-            $table->unsignedTinyInteger('idSuc')->nulleable('false');
+            $table->unsignedBigInteger('idEmp')->nulleable('false');
+            $table->unsignedBigInteger('idSuc')->nulleable('false');
             $table->timestamps();
             $table->foreign('idEmp')->references('id')->on('empresas');
             $table->foreign('idSuc')->references('id')->on('sucesos');
