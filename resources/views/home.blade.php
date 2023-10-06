@@ -48,9 +48,9 @@ foreach ($data as $item) {
             <div class="card border-secondary shadow text-secondary p-3" style="position:absolute;left:40%;top:-20px;border-radius:50%;">
                 <span class="fa fa-user" aria-hidden="true"></span>
             </div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][0]."','r')" @endphp" class="btn btn-success btn"><i class="fa fa-check-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][0]; @endphp</button></div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][1]."','r')" @endphp" class="btn btn-warning btn"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][1]; @endphp</button></div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][2]."','r')" @endphp" class="btn btn-danger btn"><i class="fa fa-minus-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][2]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][0]."','r','Personal - Ok!')" @endphp" class="btn btn-success btn"><i class="fa fa-check-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][0]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][1]."','r','Personal - Aviso')" @endphp" class="btn btn-warning btn"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][1]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$RRHH_Dataset['url'][2]."','r','Personal - Vencido')" @endphp" class="btn btn-danger btn"><i class="fa fa-minus-circle" aria-hidden="true"></i> @php echo $RRHH_Dataset['values'][2]; @endphp</button></div>
           </div>
         </div>
        <div class="col-sm-8">
@@ -61,9 +61,9 @@ foreach ($data as $item) {
             <div class="card border-secondary shadow text-secondary p-3" style="position:absolute;left:40%;top:-20px;border-radius:50%;">
                 <span class="fa fa-truck" aria-hidden="true"></span>
             </div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][0]."','v')" @endphp" class="btn btn-success btn"><i class="fa fa-check-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][0]; @endphp</button></div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][1]."','v')" @endphp" class="btn btn-warning btn"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][1]; @endphp</button></div>
-                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][2]."','v')" @endphp" class="btn btn-danger btn"><i class="fa fa-minus-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][2]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][0]."','v','Vehículos - Ok!')" @endphp" class="btn btn-success btn"><i class="fa fa-check-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][0]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][1]."','v','Vehículos - Aviso')" @endphp" class="btn btn-warning btn"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][1]; @endphp</button></div>
+                <div class="text-center mt-3 p-1"><button type="button" data-bs-toggle='modal' data-bs-target='#SampleModal' onclick="@php echo "fill('".$Vehiculos_Dataset['url'][2]."','v','Vehículos - Vencido')" @endphp" class="btn btn-danger btn"><i class="fa fa-minus-circle" aria-hidden="true"></i> @php echo $Vehiculos_Dataset['values'][2]; @endphp</button></div>
           </div>
         </div>
         <div class="row"> 
@@ -79,7 +79,8 @@ foreach ($data as $item) {
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div id="cabecera"></div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                   <table  class="table table-sn table-hover">
@@ -226,13 +227,14 @@ var PieChart = new Chart($('#PieChart'), {
 @endphp
 
 });
-function fill(label,t) { 
-    $('#SampleModalLabel').text(label,t);
+function fill(label,t,cab) { 
+    $('#SampleModalLabel').text(label,t,cab);
     $.ajax({
     url: '/homeshow/"' + label +'"',
     type: 'GET',
     dataType: 'json',
     success: function (data) {
+      var cabecera = '<b>' + cab + '</b>';
       if(t == 'r') {
       var head = '<th>EMPRESA</th><th>SUCESO</th><th>PERSONA</th>';
       }else{
@@ -246,7 +248,7 @@ function fill(label,t) {
   }
   $('#theads').html(head)
   $('#SampleContent').html(rows);
- 
+  $('#cabecera').html(cabecera);
 }
    
 }); 

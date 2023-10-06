@@ -59,7 +59,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-fill">
             <div class="container">
                 
-                <div class="collapse navbar-collapse text-middle nav-pills" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse text-middle" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                         <a class="navbar-brand text-secondary nav-item nav-link" href="{{ url('/') }}">
                             <button type="button" class="btn btn-outline-secondary"><i class="bi bi-bar-chart-line-fill"></i> Dashboard </button>
@@ -79,7 +79,7 @@
                         <a class="navbar-brand text-primary nav-item nav-link" href="{{ url('/vehiculos') }}">
                             <button type="button" class="btn btn-outline-primary"><i class="bi bi-car-front-fill"></i> Vehículos </button>
                         </a>
-
+                </div>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -115,7 +115,7 @@
                             </li>
                         @endguest
                     </ul>
-                </div>
+                
             </div>
         </nav>
 @if (session('mensajeOk'))
