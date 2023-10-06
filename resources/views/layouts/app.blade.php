@@ -15,21 +15,6 @@
         <!-- Styles 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
 
-        <style>
-            *{font-size: 14px;}
-            body {
-                font-family: 'Century Gothic';
-            }
-           
-            .my-card
-            {
-            position:absolute;
-            left:40%;
-            top:-20px;
-            border-radius:50%;
-            }
-
-        </style>
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -53,6 +38,17 @@
         } );
         </script>
 
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button{
+                -webkit-appearance: none;
+                margin: 0;
+            }
+            input[type=number]{
+                -moz-appearance: textfield;
+            }
+
+        </style>
     </head>
 <body>
     <div id="app">

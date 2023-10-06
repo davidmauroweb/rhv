@@ -78,7 +78,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 DNI
-                                                <input type="text" name="dni" class="form-control form-control-sm" value="{{$p->dni}}" maxlength="8">
+                                                <input type="number" name="dni" class="form-control form-control-sm" value="{{$p->dni}}" maxlength="8" placeholder="DNI sin .">
                                             </div>
                                             <div class="col">
                                                 Sexo
@@ -194,11 +194,11 @@
                             @csrf
                             <div class="modal-body">
                             Nombre
-                            <input type="text" name="nombre" class="form-control form-control-sm" value="" placeholder="Nombre" maxlength="20">
+                            <input type="number" name="nombre" class="form-control form-control-sm" value="" placeholder="Nombre" maxlength="20">
                             <div class="row">
                                 <div class="col">
                                     DNI
-                                    <input type="text" name="dni" class="form-control form-control-sm" value="" placeholder="DNI sin ." maxlength="8">
+                                    <input type="number" name="dni" class="form-control form-control-sm" value="" placeholder="DNI sin ." maxlength="8">
                                 </div>
                                 <div class="col">
                                     Sexo

@@ -234,7 +234,7 @@ function fill(label,t,cab) {
     type: 'GET',
     dataType: 'json',
     success: function (data) {
-      var cabecera = '<b>' + cab + '</b>';
+      var cabecera = '<h5><b>' + cab + '</b></h5>';
       if(t == 'r') {
       var head = '<th>EMPRESA</th><th>SUCESO</th><th>PERSONA</th>';
       }else{

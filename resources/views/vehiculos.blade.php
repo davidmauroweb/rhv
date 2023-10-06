@@ -131,7 +131,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 AÑO
-                                                <input type="text" name="modelo" class="form-control form-control-sm" value="{{$v->modelo}}" maxlength="4">
+                                                <input type="number" name="modelo" class="form-control form-control-sm" value="{{$v->modelo}}" maxlength="4">
                                             </div>
                                             <div class="col">
                                                 Tipo
@@ -227,7 +227,7 @@
                             <div class="row">
                                 <div class="col">
                                     AÑO
-                                    <input type="text" name="modelo" class="form-control form-control-sm" value="" maxlength="4" placeholder="AAAA">
+                                    <input type="number" name="modelo" class="form-control form-control-sm" value="" maxlength="4" placeholder="AAAA">
                                 </div>
                                 <div class="col">
                                     Tipo

@@ -87,7 +87,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 Días de aviso
-                                                <input type="text" name="vigencia" class="form-control form-control-sm" value="{{$s->vigencia}}" maxlength="8">
+                                                <input type="number" name="vigencia" class="form-control form-control-sm" value="{{$s->vigencia}}" maxlength="8">
                                             </div>
                                             <div class="col">
                                                 Tipo
@@ -132,7 +132,7 @@
                                 <div class="row">
                                     <div class="col">
                                         Días de aviso
-                                        <input type="text" name="vigencia" class="form-control form-control-sm" value="" maxlength="8" placeholder="Días">
+                                        <input type="number" name="vigencia" class="form-control form-control-sm" value="" maxlength="8" placeholder="Días">
                                     </div>
                                     <div class="col">
                                         Tipo
