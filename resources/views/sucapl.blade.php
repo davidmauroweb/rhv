@@ -79,7 +79,7 @@
                                             <input type="date"
                                                    class="datepicker-input form-control"
                                                    name="fecha"
-                                                   value="{{date('d-m-Y')}}">
+                                                   value="{{date('d-m-Y')}}" required>
                                           </span>
                                     </div>
                                     <div class="col">
@@ -88,7 +88,7 @@
                                             <input type="date"
                                                    class="datepicker-input form-control"
                                                    name="vence"
-                                                   value="">
+                                                   value="" required>
                                           </span>
                                     </div>
                                 </div>

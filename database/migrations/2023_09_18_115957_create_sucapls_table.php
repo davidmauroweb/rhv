@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('sucapls', function (Blueprint $table) {
             $table->integerIncrements('idsucapl');
-            $table->unsignedBigInteger('idPer');
-            $table->unsignedBigInteger('idVeh');
-            $table->unsignedBigInteger('idSuc')->nulleable('false');
+            $table->unsignedBigInteger('idPer')->nullable();
+            $table->unsignedBigInteger('idVeh')->nullable();
+            $table->unsignedBigInteger('idSuc');
             $table->date('fecha');
-            $table->date('vence');
-            $table->foreign('idPer')->references('id')->on('personas');
-            $table->foreign('idVeh')->references('id')->on('vehiculos');            
+            $table->date('vence');         
             $table->foreign('idSuc')->references('id')->on('sucesos');
             $table->timestamps();
 

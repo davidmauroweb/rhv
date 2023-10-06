@@ -43,7 +43,7 @@
                             <td>{{$p->nombre}}</td>
                             <td>{{$p->dni}}</td>
                             <td>
-                                @if($p->activo==0)
+                                @if($p->sx==0)
                                 Masc.
                                 @else
                                 Fem.

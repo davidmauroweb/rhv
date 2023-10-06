@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('emppers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idEmp')->nulleable('false');
-            $table->unsignedBigInteger('idPer')->nulleable('false');
-            $table->boolean('activo')->nulleable('false');
+            $table->unsignedBigInteger('idEmp')->nullable('false');
+            $table->unsignedBigInteger('idPer')->nullable('false');
+            $table->boolean('activo')->nullable('false');
             $table->timestamps();
             $table->foreign('idEmp')->references('id')->on('empresas');
             $table->foreign('idPer')->references('id')->on('personas');

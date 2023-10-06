@@ -47,6 +47,7 @@
                             <th>VENCIMIENTO</th>
                         </thead>
                         <tbody>
+                        @if(isset($apl))
                         @foreach ($apl as $s)
                             <tr class="align-middle
                             @if($s->days < 0)
@@ -62,6 +63,7 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                         </tbody>
                         </table>
     </div>

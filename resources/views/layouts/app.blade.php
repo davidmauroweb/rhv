@@ -56,28 +56,28 @@
     </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm nav-fill">
             <div class="container">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Panel
-                </a>
                 
+                <div class="collapse navbar-collapse text-middle nav-pills" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                        <a class="navbar-brand text-primary" href="{{ url('/empresas') }}">
-                            <i class="bi bi-buildings-fill"></i> Empresas
+                        <a class="navbar-brand text-secondary nav-item nav-link" href="{{ url('/') }}">
+                            <button type="button" class="btn btn-outline-secondary"><i class="bi bi-bar-chart-line-fill"></i> Dashboard </button>
+                        </a>
+                        <a class="navbar-brand text-primary nav-item nav-link" href="{{ url('/empresas') }}">
+                            <button type="button" class="btn btn-outline-primary"><i class="bi bi-buildings-fill"></i> Empresas </button>
                         </a>
                         
-                        <a class="navbar-brand text-primary" href="{{ url('/sucesos') }}">
-                            <i class="bi bi-boxes"></i> Sucesos
+                        <a class="navbar-brand text-primary nav-item nav-link" href="{{ url('/sucesos') }}">
+                            <button type="button" class="btn btn-outline-primary"><i class="bi bi-boxes"></i> Sucesos </button>
                         </a>
 
-                        <a class="navbar-brand text-primary" href="{{ url('/personas') }}">
-                            <i class="bi bi-people-fill"></i> RRHH
+                        <a class="navbar-brand text-primary nav-item nav-link" href="{{ url('/personas') }}">
+                            <button type="button" class="btn btn-outline-primary"><i class="bi bi-people-fill"></i> RRHH </button>
                         </a>
 
-                        <a class="navbar-brand text-primary" href="{{ url('/vehiculos') }}">
-                            <i class="bi bi-car-front-fill"></i> Vehículos
+                        <a class="navbar-brand text-primary nav-item nav-link" href="{{ url('/vehiculos') }}">
+                            <button type="button" class="btn btn-outline-primary"><i class="bi bi-car-front-fill"></i> Vehículos </button>
                         </a>
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -85,7 +85,7 @@
                         </button>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto nav-item nav-link">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -119,13 +119,14 @@
             </div>
         </nav>
 @if (session('mensajeOk'))
-swal("Correcto!", "{{session('mensajeOk')}}", "success");
+<script>
+    swal("Correcto!", "{{session('mensajeOk')}}", "success");
+</script>
 @endif
 @if (session('mensajeErr'))
-    <div class="alert alert-warning px-5 mx-5" role="alert" id="m">
-{{session('mensajeErr')}}
-<a href="#" class="close" data-dismiss="alert" aria-label="close"><i class="bi bi-x-circle"></i></a>
-</div>
+<script>
+    swal("Error", "{{session('mensajeErr')}}", "error");
+</script>
 @endif
         <main class="py-2">
             @yield('content')

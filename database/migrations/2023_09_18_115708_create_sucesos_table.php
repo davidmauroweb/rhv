@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('sucesos', function (Blueprint $table) {
             $table->id();
-            $table->string('nombresuc',20)->nulleable('false')->unique();
-            $table->string('desc', 1000);
-            $table->unsignedSmallInteger('vigencia')->nulleable('false');
+            $table->string('nombresuc',20)->nullable('false')->unique();
+            $table->string('desc', 1000)->nullable();
+            $table->unsignedSmallInteger('vigencia')->nullable('false');
             $table->unsignedTinyInteger('tipo');
             /**
              * En tipo va hardcodeado en la vista:

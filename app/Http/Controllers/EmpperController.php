@@ -63,6 +63,7 @@ class EmpperController extends Controller
             $n = new empper;
             $n->idEmp = $request->idEmp;
             $n->idPer = $request->idPer;
+            $n->activo = 1;
             $n->save();
             return redirect()->route('personas.index')->with('mensajeOk','Vinculo Generado ');
         }else{
@@ -76,12 +77,12 @@ class EmpperController extends Controller
     public function show(Request $request)
     {
         $aplicados=DB::table('sucapls')
-        ->select('sucesos.id','sucesos.nombresuc','sucapls.*',DB::raw("DATEDIFF(sucapls.vence,curdate())AS days"))
+        ->select('sucesos.id','sucesos.vigencia','sucesos.nombresuc','sucapls.*',DB::raw("DATEDIFF(sucapls.vence,curdate())AS days"))
         ->join('sucesos','sucesos.id','=','sucapls.idSuc')
         ->where('sucapls.idPer','=',$request->idPer)
         ->orderBy('days')
         ->get();
-        $apl = $aplicados->unique('sucapls.idSuc');
+        $apl = $aplicados->unique('idSuc');
         $empsuc=DB::table('empsucs')
         ->select('sucesos.id','sucesos.nombresuc','empsucs.*')
         ->join('sucesos','sucesos.id','=','empsucs.idSuc')

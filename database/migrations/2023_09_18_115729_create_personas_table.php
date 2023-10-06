@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre',20)->nulleable('false')->unique();
-            $table->string('dni',8)->nulleable('false')->unique();
-            $table->boolean('sx')->nulleable('false');
-            $table->date('ingreso')->nulleable('false');
-            $table->boolean('activo')->nulleable('false');
+            $table->string('nombre',20)->nullable('false')->unique();
+            $table->string('dni',8)->nullable('false')->unique();
+            $table->boolean('sx')->nullable('false');
+            $table->date('ingreso')->nullable('false');
+            $table->boolean('activo')->nullable('false');
             $table->timestamps();
         });
     }

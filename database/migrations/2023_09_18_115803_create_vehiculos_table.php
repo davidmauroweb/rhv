@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('patente', 7)->nulleable('fales')->unique();
-            $table->string('marca', 20)->nulleable('fales');
-            $table->year('modelo')->nulleable('fales');
-            $table->string('tipo', 10)->nulleable('fales');
+            $table->string('patente', 7)->nullable('fales')->unique();
+            $table->string('marca', 20)->nullable('fales');
+            $table->year('modelo')->nullable('fales');
+            $table->string('tipo', 10)->nullable('fales');
             /**
              * En tipo va hardcodeado en la vista:
              * 0 - Automovil
