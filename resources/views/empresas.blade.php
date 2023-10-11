@@ -34,7 +34,7 @@ function listap(emp){
           var rows = '';
           if(data.length > 0) {
               $.each(data, function(i, personas){
-              rows+= '<tr><td>' + personas.id + '</td><td>' + personas.nombre + '</td></tr>'; 
+              rows+= '<tr><td><form action="/empper/' + personas.id + '" method="post"> @csrf @method("delete") <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(`¿Desea Quitar el vínculo?`)"><i class="bi bi-trash-fill"></i></button></form></td><td>' + personas.id + personas.nombre + '</td></tr>'; 
               });
           }
           $('#tabp').html(rows);

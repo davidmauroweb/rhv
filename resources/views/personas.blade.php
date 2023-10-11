@@ -144,12 +144,11 @@
                                         <form action="{{route('empper.show')}}" method="post">
                                             @csrf
                                             <div class="modal-header">
-                                                Analizar {{$p->nombre}}
+                                                Analizar {{$p->nombre}} con la Empresa:
                                             </div>
                                             <div class="modal-body">
                                             <input type="hidden" name="idPer" value="{{$p->id}}">
                                             <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="idEmp">
-                                                <option value="">... empresas ...</option>
                                                 @foreach ($empresas as $e)
                                                     <option value="{{$e->id}}">{{$e->nombre}}</option>
                                                 @endforeach

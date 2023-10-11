@@ -25,49 +25,21 @@
                             {{ session('status') }}
                         </div>
                     @endif
-<div class="row">
-    <div class="col-6">
+
                     <table class="table table-sn table-hover">
                     <thead>
-                        <th>REQUERIDO</th>
+                        <th>Estado</th>
                     </thead>
                     <tbody>
                     @foreach ($empsuc as $es)
                         <tr class="align-middle">
-                            <td>{{$es->nombresuc}}</td>
+                            <td>@php echo $es->estado @endphp</td>
                         </tr>
                     @endforeach
                     </tbody>
                     </table>
-    </div>
-    <div class="col-6">
-                        <table class="table table-sn table-hover">
-                        <thead>
-                            <th>APLICADO</th>
-                            <th>VENCIMIENTO</th>
-                        </thead>
-                        <tbody>
-                        @if(isset($apl))
-                        @foreach ($apl as $s)
-                            <tr class="align-middle
-                            @if($s->days < 0)
-                            table-danger
-                            @elseif($s->days < $s->vigencia)
-                            table-warning
-                            @else
-                            @endif
-                            ">
-                                <td>{{$s->nombresuc}}</td>
-                                <td>{{date("d/m/Y", strtotime($s->vence))}}
-                                    || {{$s->days}}
-                                </td>
-                            </tr>
-                        @endforeach
-                        @endif
-                        </tbody>
-                        </table>
-    </div>
-</div>
+
+
                 </div>
             </div>
         </div>

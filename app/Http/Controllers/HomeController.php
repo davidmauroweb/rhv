@@ -51,6 +51,7 @@ class HomeController extends Controller
     
     public function show($dt)
     {
+        try {
         $data = DB::select("SELECT Y.* FROM (SELECT E.nombre field1, S.nombresuc field2, P.nombre field3, 
         CONCAT('RRHH - ', IF(Q.vence IS NULL OR Q.vence < CURDATE(), 'PENDIENTE', 
         IF(DATEDIFF(Q.vence, CURDATE()) <= S.vigencia, 'A VENCERSE', 'CORRECTO')))  estado FROM empresas E
@@ -71,6 +72,10 @@ class HomeController extends Controller
         WHERE sucapls.idsucapl IN (SELECT MAX(idsucapl) idsucapl FROM sucapls 
         WHERE idveh IS NOT NULL GROUP BY idveh, idsuc))
         Q ON Q.idveh = V.id AND Q.idsuc = S.id) Y WHERE Y.estado = ".$dt);
+        }
+        catch (\Exception $ex) {
+            $data = ['field1' => '-','field2' => '-','field3' => '-'];
+        }
         return response()->json($data);
     }
 }

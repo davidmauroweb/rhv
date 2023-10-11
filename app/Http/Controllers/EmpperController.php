@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class EmpperController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -76,25 +80,24 @@ class EmpperController extends Controller
      */
     public function show(Request $request)
     {
-        $aplicados=DB::table('sucapls')
-        ->select('sucesos.id','sucesos.vigencia','sucesos.nombresuc','sucapls.*',DB::raw("DATEDIFF(sucapls.vence,curdate())AS days"))
-        ->join('sucesos','sucesos.id','=','sucapls.idSuc')
-        ->where('sucapls.idPer','=',$request->idPer)
-        ->orderBy('days')
-        ->get();
-        $apl = $aplicados->unique('idSuc');
-        $empsuc=DB::table('empsucs')
-        ->select('sucesos.id','sucesos.nombresuc','empsucs.*')
-        ->join('sucesos','sucesos.id','=','empsucs.idSuc')
-        ->where('empsucs.idEmp','=',$request->idEmp)
-        ->get();
+        $empsuc=DB::select("SELECT CONCAT('<div class=''alert alert-', IF(Q.vence IS NULL OR Q.vence < CURDATE(),'danger',
+        IF(DATEDIFF(Q.vence, CURDATE()) < S.vigencia, 'warning', 'success')),''' role=''alert''><b>', S.nombresuc ,'</b>',
+        IF(Q.vence IS NOT NULL, CONCAT(' ( Vencimiento : ', DATE_FORMAT(Q.vence, '%d/%m/%Y'), ')'), ''), '</div>') estado
+        FROM empsucs ES 
+        INNER JOIN sucesos S ON S.id = ES.idSuc
+        LEFT JOIN (SELECT idSuc, vence FROM sucapls 
+        WHERE idsucapl IN (SELECT MAX(idsucapl) FROM sucapls 
+        WHERE (idPer IS NOT NULL AND idPer = $request->idPer) GROUP BY idSuc)) Q
+        ON Q.idSuc = ES.idSuc
+        WHERE idEmp = $request->idEmp
+        ");
         $per=DB::table('personas')
         ->where('id','=',$request->idPer)
         ->get();
         $emp=DB::table('empresas')
         ->where('id','=',$request->idEmp)
         ->get();
-        return view ('empper',['apl'=>$apl, 'empsuc'=>$empsuc, 'per'=>$per, 'emp'=>$emp]);
+        return view ('empper',['empsuc'=>$empsuc, 'per'=>$per, 'emp'=>$emp]);
     }
 
     /**
