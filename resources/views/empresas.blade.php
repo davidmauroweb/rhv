@@ -74,13 +74,9 @@ function listap(emp){
                             <td>{{$e->id}}</td>
                             <td>{{$e->nombre}}</td>
                             <td>{{$e->cuit}}</td>
-                            <td >
+                            <td>
+                            {{$e->q_personas}}</td>
 
-                            <a class="navbar-brand text-primary" href="{{route('sucapl.showmas',$e->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm" title="Carga masiva de evento al personal"><i class="bi bi-card-checklist"></i> - {{$e->q_personas}}</button>
-                            </a>
-
-                            </td>
                             <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlisp" onClick="listap({{$e->id}})" title="Lista de Personal">
                                 <i class="bi bi-people-fill"></i>
                                 </button>
@@ -97,10 +93,16 @@ function listap(emp){
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div class="modal-footer">
+                                        <a class="navbar-brand text-primary" href="{{route('sucapl.showmas',$e->id)}}">
+                                    <button type="button" class="btn btn-primary btn-sm" title="Carga masiva de evento al personal"><i class="bi bi-card-checklist"></i> Carga Masiva de Eventos</button>
+                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                                 </div>
                             </td>
+                            
                             <td >{{$e->q_sucesos}}</td>
                             <td>@php echo $e->x; @endphp</td>
                             <td>
