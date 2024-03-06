@@ -48,7 +48,7 @@
                                 @endforeach
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar  {{$s->nombresuc}}?')"><i class="bi bi-trash-fill"></i></button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar  {{$s->nombresuc}}?')" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
                                 </form> </td>
                         </tr>
                     @endforeach

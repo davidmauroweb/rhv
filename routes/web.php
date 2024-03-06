@@ -49,7 +49,9 @@ Route::delete('/empsuc/{es}', [EmpsucController::class, 'destroy'])->name('empsu
 //Sucesos Aplicados
 Route::get('/sucaplv/{sa}', [SucaplController::class, 'index'])->name('sucapl.index');
 Route::get('/sucaplp/{sa}', [SucaplController::class, 'show'])->name('sucapl.show');
+Route::get('/sucaplpmas/{sa}', [SucaplController::class, 'showmas'])->name('sucapl.showmas');
 Route::post('/sucapl', [SucaplController::class, 'store'])->name('sucapl.store');
+Route::post('/sucaplmas', [SucaplController::class, 'storemas'])->name('sucapl.storemas');
 Route::delete('/sucapldel/{sa}', [SucaplController::class, 'destroy'])->name('sucapl.destroy');
 //Empresas Personas
 Route::get('/empper/{ep}', [EmpperController::class, 'index'])->name('empper.index');

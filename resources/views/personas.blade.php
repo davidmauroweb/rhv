@@ -60,7 +60,7 @@
                             </td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$p->id}}"><i class="bi bi-pencil-square"></i></button>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$p->id}}" title="Editar"><i class="bi bi-pencil-square"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="m{{$p->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -124,7 +124,7 @@
                             </td>
                             <td>
                                 <a class="navbar-brand text-primary" href="{{route('sucapl.show',$p->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm" title="Lista de eventos"><i class="bi bi-card-checklist"></i></button>
                                 </a> 
                             </td>
 
@@ -132,7 +132,7 @@
 
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#e{{$p->id}}"
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#e{{$p->id}}" title="Analizar"
                                     @if($p->activo==0)
                                     disabled
                                     @endif                                    
@@ -167,7 +167,7 @@
                                 <form action="{{route('personas.destroy', $p->id)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar a  {{$p->nombre}}?')"
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar a  {{$p->nombre}}?')" title="Eliminar"
                                         @if($p->activo==0)
                                         disabled
                                         @endif

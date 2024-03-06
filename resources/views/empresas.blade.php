@@ -74,8 +74,14 @@ function listap(emp){
                             <td>{{$e->id}}</td>
                             <td>{{$e->nombre}}</td>
                             <td>{{$e->cuit}}</td>
-                            <td >{{$e->q_personas}}</td>
-                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlisp" onClick="listap({{$e->id}})">
+                            <td >
+
+                            <a class="navbar-brand text-primary" href="{{route('sucapl.showmas',$e->id)}}">
+                                    <button type="button" class="btn btn-primary btn-sm" title="Carga masiva de evento al personal"><i class="bi bi-card-checklist"></i> - {{$e->q_personas}}</button>
+                            </a>
+
+                            </td>
+                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlisp" onClick="listap({{$e->id}})" title="Lista de Personal">
                                 <i class="bi bi-people-fill"></i>
                                 </button>
                                 <div class="modal fade" id="mlisp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -99,7 +105,7 @@ function listap(emp){
                             <td>@php echo $e->x; @endphp</td>
                             <td>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$e->id}}"><i class="bi bi-pencil-square"></i></button>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$e->id}}" title="Editar Empresa"><i class="bi bi-pencil-square"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="m{{$e->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -129,10 +135,10 @@ function listap(emp){
                             </td>
                             <td>
                                 <a class="navbar-brand text-primary" href="{{route('empsuc.index',$e->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-ui-checks"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm" title="Eventos Solicitados"><i class="bi bi-ui-checks"></i></button>
                                 </a>  
                             </td>
-                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlis" onClick="lista({{$e->id}})">
+                            <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlis" onClick="lista({{$e->id}})" title="Estado de eventos">
                                 <i class="bi bi-person-fill-check"></i>
                                 </button>
                                 <div class="modal fade" id="mlis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

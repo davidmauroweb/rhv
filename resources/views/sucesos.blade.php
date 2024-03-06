@@ -30,10 +30,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><i class="bi bi-boxes"></i> Sucesos
-                    <button id="0" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-car-front-fill"></i></button>
-                    <button id="1" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-heart-pulse-fill"></i></button>
-                    <button id="2" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-universal-access-circle"></i></button>
-                    <button id="3" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-three-dots"></i></button>
+                    <button id="0" class="btn btn-secondary btn-sm mx-1" title="Vehículos"><i class="bi bi-car-front-fill"></i></button>
+                    <button id="1" class="btn btn-secondary btn-sm mx-1" title="Salud"><i class="bi bi-heart-pulse-fill"></i></button>
+                    <button id="2" class="btn btn-secondary btn-sm mx-1" title="Seguridad"><i class="bi bi-universal-access-circle"></i></button>
+                    <button id="3" class="btn btn-secondary btn-sm mx-1" title="Todos"><i class="bi bi-three-dots"></i></button>
                 </div>
 
                 <div class="card-body">

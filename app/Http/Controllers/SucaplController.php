@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{sucapl, personas, vehiculos, sucesos, vehsuc};
+use App\Models\{sucapl, personas, vehiculos, sucesos, vehsuc, empresas, empper};
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -64,6 +64,20 @@ class SucaplController extends Controller
         return redirect()->route($r,$d);
     }
 
+    public function storemas(Request $request)
+    {
+        $ent = empper::all()->where('idEmp','=',$request->idEmp);
+        foreach ($ent as $idPer){ 
+            echo "<br>id persona ".$idPer->idPer;
+            echo "<br>Id Suceso ".$request->idSuc;
+            echo "<br>Fecha ".$request->fecha;
+            echo "<br>Vence ".$request->vence;
+            DB::insert('insert into sucapls (idPer, idSuc, fecha, vence) values (?, ?, ?, ?)', [$idPer->idPer, $request->idSuc, $request->fecha, $request->vence]);
+            }
+            
+            //return redirect()->route('empresas.index')->with('mensajeOk', 'Se cargaron los eventos a todos los empleados de la empresa');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -80,6 +94,13 @@ class SucaplController extends Controller
     $lsuc = sucesos::select('id','nombresuc')->where('tipo','>',0)->get();
     $ent = personas::all()->where('id','=',$sa);
     return view ('sucapl',['sucapl'=>$ls,'lsuc'=>$lsuc,'ent'=>$ent]);
+    }
+
+    public function showmas($sa)
+    {
+    $lsuc = sucesos::select('id','nombresuc')->where('tipo','>',0)->get();
+    $ent = empresas::all()->where('id','=',$sa)->first();
+    return view ('sucaplmas',['lsuc'=>$lsuc,'ent'=>$ent]);
     }
 
     /**

@@ -52,12 +52,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><i class="bi bi-car-front-fill"></i> Vehículos 
-                    <button id="Automovil" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-car-front-fill"></i></button>
-                    <button id="Furgón" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-truck"></i></button>
-                    <button id="Pick-Up" class="btn btn-secondary btn-sm mx-1"> <i class="bi bi-truck-flatbed"></i></button>
-                    <button id="Camión" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-bus-front-fill"></i></button>
-                    <button id="Otro" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-ev-front"></i></button>
-                    <button id="Todos" class="btn btn-secondary btn-sm mx-1"><i class="bi bi-three-dots"></i></button>
+                    <button id="Automovil" class="btn btn-secondary btn-sm mx-1" title="Automovil"><i class="bi bi-car-front-fill"></i></button>
+                    <button id="Furgón" class="btn btn-secondary btn-sm mx-1" title="Furgón"><i class="bi bi-truck"></i></button>
+                    <button id="Pick-Up" class="btn btn-secondary btn-sm mx-1" title="Pick-Up"> <i class="bi bi-truck-flatbed"></i></button>
+                    <button id="Camión" class="btn btn-secondary btn-sm mx-1" title="Camión"><i class="bi bi-bus-front-fill"></i></button>
+                    <button id="Otro" class="btn btn-secondary btn-sm mx-1" title="Otro"><i class="bi bi-ev-front"></i></button>
+                    <button id="Todos" class="btn btn-secondary btn-sm mx-1" title="Todos"><i class="bi bi-three-dots"></i></button>
                 </div>
 
                 <div class="card-body">
@@ -113,7 +113,7 @@
                             <td class="text-center">{{ Str::upper($v->patente) }}</td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$v->id}}"><i class="bi bi-pencil-square"></i></button>
+                                <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#m{{$v->id}}" title="Editar"><i class="bi bi-pencil-square"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="m{{$v->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -158,7 +158,7 @@
                             </td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#s{{$v->id}}"><i class="bi bi-boxes"></i></button>
+                                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#s{{$v->id}}" title="Agregar/Ver Evento"><i class="bi bi-boxes"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="s{{$v->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -194,14 +194,14 @@
                             </td>
                             <td class="text-end">
                                 <a class="navbar-brand text-primary" href="{{route('sucapl.index',$v->id)}}">
-                                <button type="button" class="btn btn-primary btn-sm"><i class="bi bi-card-checklist"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm" title="Aplicar Evento"><i class="bi bi-card-checklist"></i></button>
                                 </a> 
                             </td>
                             <td class="text-center">
                                 <form action="{{route('vehiculos.destroy', $v->id)}}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar  {{$v->marca}}?')"><i class="bi bi-trash-fill"></i></button>
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Desea Quitar  {{$v->marca}}?')" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
                                     </form>    
                             </td>
                         </tr>
