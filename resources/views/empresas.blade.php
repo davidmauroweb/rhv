@@ -62,6 +62,7 @@ function listap(emp){
                         <th>CUIT</th>
                         <th><i class="bi bi-people-fill"></i></th>
                         <th></th>
+                        <th></th>
                         <th><i class="bi bi-card-checklist"></i></th>
                         <th>RESUMEN</th>
                         <th><i class="bi bi-pencil-square"></i></th>
@@ -74,8 +75,7 @@ function listap(emp){
                             <td>{{$e->id}}</td>
                             <td>{{$e->nombre}}</td>
                             <td>{{$e->cuit}}</td>
-                            <td>
-                            {{$e->q_personas}}</td>
+                            <td>{{$e->q_personas}}</td>
 
                             <td><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mlisp" onClick="listap({{$e->id}})" title="Lista de Personal">
                                 <i class="bi bi-people-fill"></i>
@@ -84,7 +84,7 @@ function listap(emp){
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h6 class="modal-title" id="exampleModalLabel">Personal de {{$e->nombre}}</h6>
+                                        <h6 class="modal-title" id="exampleModalLabel">Personal</h6>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -94,15 +94,16 @@ function listap(emp){
                                             </table>
                                         </div>
                                         <div class="modal-footer">
-                                        <a class="navbar-brand text-primary" href="{{route('sucapl.showmas',$e->id)}}">
-                                    <button type="button" class="btn btn-primary btn-sm" title="Carga masiva de evento al personal"><i class="bi bi-card-checklist"></i> Carga Masiva de Eventos</button>
-                                        </a>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </td>
-                            
+                            <td>
+                            <a class="navbar-brand text-primary" href="{{route('sucapl.showmas',$e->id)}}">
+                                    <button type="button" class="btn btn-primary btn-sm" title="Carga masiva de evento al personal de {{$e->nombre}}"><i class="bi bi-card-checklist"></i></button>
+                            </a>
+                            </td>
                             <td >{{$e->q_sucesos}}</td>
                             <td>@php echo $e->x; @endphp</td>
                             <td>

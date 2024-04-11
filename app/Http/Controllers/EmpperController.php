@@ -40,6 +40,7 @@ class EmpperController extends Controller
         ->select('emppers.id','personas.nombre')
         ->join('personas','emppers.idPer','personas.id')
         ->where('emppers.idEmp','=',$ep)
+        ->where('emppers.activo','=',1)
         ->where('personas.activo','=',1)
         ->get();
         return response()->json($lista);

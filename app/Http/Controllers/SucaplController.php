@@ -65,17 +65,18 @@ class SucaplController extends Controller
     }
 
     public function storemas(Request $request)
-    {
-        $ent = empper::all()->where('idEmp','=',$request->idEmp);
-        foreach ($ent as $idPer){ 
-            echo "<br>id persona ".$idPer->idPer;
-            echo "<br>Id Suceso ".$request->idSuc;
-            echo "<br>Fecha ".$request->fecha;
-            echo "<br>Vence ".$request->vence;
+    {//$request->idEmp
+        $ent = DB::table('emppers')
+        ->select('emppers.*','personas.*')
+        ->join('personas','emppers.idPer','personas.id')
+        ->where('emppers.idEmp','=',$request->idEmp)
+        ->where('emppers.activo','=',1)
+        ->where('personas.activo','=',1)
+        ->get();
+        foreach ($ent as $idPer){
             DB::insert('insert into sucapls (idPer, idSuc, fecha, vence) values (?, ?, ?, ?)', [$idPer->idPer, $request->idSuc, $request->fecha, $request->vence]);
             }
-            
-            //return redirect()->route('empresas.index')->with('mensajeOk', 'Se cargaron los eventos a todos los empleados de la empresa');
+            return redirect()->route('empresas.index')->with('mensajeOk', 'Se cargaron los eventos a todos los empleados de la empresa');
     }
 
     /**
